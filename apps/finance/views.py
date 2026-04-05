@@ -14,8 +14,10 @@ class TransactionListCreateView(generics.ListCreateAPIView):
     filterset_class = TransactionFilter
     ordering_fields = ['date', 'amount', 'created_at']
 
-    def get_queryset(self):
-        return Transaction.objects.filter(user=self.request.user)
+def get_queryset(self):
+    if getattr(self, 'swagger_fake_view', False):
+        return Transaction.objects.none()
+    return Transaction.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -23,7 +25,29 @@ class TransactionListCreateView(generics.ListCreateAPIView):
 
 class TransactionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TransactionSerializer
-    permission_classes = [IsAdminOrReadOnly]
+    queryset = Transaction.objects.none()  # ← add this line
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):  # ← add this guard
+            return Transaction.objects.none()
         return Transaction.objects.filter(user=self.request.user)
+
+from rest_framework import serializers
+
+class DashboardSummarySerializer(serializers.Serializer):
+    total_income = serializers.DecimalField(max_digits=10, decimal_places=2)
+    total_expense = serializers.DecimalField(max_digits=10, decimal_places=2)
+    balance = serializers.DecimalField(max_digits=10, decimal_places=2)
+
+class DashboardSummaryView(generics.GenericAPIView):
+    serializer_class = DashboardSummarySerializer  # ← add this
+    ...
+
+class MonthlyReportSerializer(serializers.Serializer):
+    month = serializers.CharField()
+    income = serializers.DecimalField(max_digits=10, decimal_places=2)
+    expense = serializers.DecimalField(max_digits=10, decimal_places=2)
+
+class MonthlyReportView(generics.GenericAPIView):
+    serializer_class = MonthlyReportSerializer  # ← add this
+    ...
