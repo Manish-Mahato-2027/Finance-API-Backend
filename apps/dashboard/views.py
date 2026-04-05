@@ -3,10 +3,13 @@ from rest_framework.response import Response
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncMonth
 from apps.finance.models import Transaction
+from apps.users.permissions import IsViewer
 from .services import DashboardService
 
 
 class DashboardSummaryView(generics.GenericAPIView):
+    permission_classes = [IsViewer]
+
     def get(self, request):
         user = request.user
         service = DashboardService(user)
@@ -15,6 +18,8 @@ class DashboardSummaryView(generics.GenericAPIView):
 
 
 class MonthlyReportView(generics.GenericAPIView):
+    permission_classes = [IsViewer]
+
     def get(self, request):
         user = request.user
         service = DashboardService(user)

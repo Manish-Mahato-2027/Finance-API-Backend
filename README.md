@@ -11,13 +11,13 @@ A Django REST API for personal finance management — authentication, transactio
 | ENDPOINTS | AUTH | ROLES |
 |-----------|------|-------|
 | **13** | **JWT** | **3** |
-| Backend 3 modules | Simple JWT / none | Admin · Manager · User |
+| Backend 3 modules | Simple JWT / none | Admin · Analyst · Viewer |
 
 ---
 
 ## Features
 
-- 👤 **User Management** — Custom user model with role-based access control
+- 👤 **User Management** — Custom user model with role-based access control and role mappings: Admin, Analyst, Viewer
 - 🔐 **JWT Authentication** — Secure token auth with DRF Simple JWT
 - 💸 **Transaction CRUD** — Full lifecycle management for income & expenses
 - 🔍 **Filtering & Search** — Filter by date, amount, category, type
@@ -40,7 +40,7 @@ finance_backend/
 │   │   ├── serializers.py
 │   │   ├── views.py
 │   │   └── urls.py
-│   ├── transactions/
+│   ├── finance/
 │   │   ├── models.py
 │   │   ├── serializers.py
 │   │   ├── views.py

@@ -6,11 +6,11 @@ class IsAdmin(BasePermission):
         return request.user and request.user.is_authenticated and request.user.role == 'admin'
 
 
-class IsManager(BasePermission):
+class IsAnalyst(BasePermission):
     def has_permission(self, request, view):
         return request.user and request.user.is_authenticated and request.user.role in ['admin', 'manager']
 
 
-class IsUser(BasePermission):
+class IsViewer(BasePermission):
     def has_permission(self, request, view):
         return request.user and request.user.is_authenticated and request.user.role in ['admin', 'manager', 'user']
