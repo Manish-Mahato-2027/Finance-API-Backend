@@ -51,7 +51,7 @@ MIDDLEWARE = [
    
 ]
 
-ROOT_URLCONF = 'finance_backend.urls'
+ROOT_URLCONF = 'config/urls.py'
 
 TEMPLATES = [
     {
