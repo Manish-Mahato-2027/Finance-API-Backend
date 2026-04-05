@@ -51,7 +51,7 @@ MIDDLEWARE = [
    
 ]
 
-ROOT_URLCONF = 'config/urls.py'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'finance_backend.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 #Database
