@@ -71,7 +71,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'finance_backend.wsgi.application'
 
 
-# Database
+#Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 DATABASES = {
     'default': {
@@ -79,6 +79,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation
