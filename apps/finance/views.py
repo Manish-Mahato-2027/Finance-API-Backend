@@ -25,10 +25,10 @@ def get_queryset(self):
 
 class TransactionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TransactionSerializer
-    queryset = Transaction.objects.none()  # ← add this line
+    queryset = Transaction.objects.none() 
 
     def get_queryset(self):
-        if getattr(self, 'swagger_fake_view', False):  # ← add this guard
+        if getattr(self, 'swagger_fake_view', False): 
             return Transaction.objects.none()
         return Transaction.objects.filter(user=self.request.user)
 
